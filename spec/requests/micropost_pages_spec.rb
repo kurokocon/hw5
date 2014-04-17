@@ -41,5 +41,10 @@ describe "Micropost pages" do
         expect { click_link "delete" }.to change(Micropost, :count).by(-1)
       end
     end
+    describe "as incorrect user" do
+      let(:wrong_user) { FactoryGirl.create(:user, email: "wrong@example.com") }
+      before {sign_in wrong_user}
+      it {should_not have_link('delete')}
+    end
   end
 end
